@@ -1,0 +1,60 @@
+define(RED,"\033[0;31m")
+define(BLUE,"\033[0;34m")
+define(YELLOW,"\033[0;33m")
+define(CYAN,"\033[0;36m")
+define(GREEN,"\033[0;32m")
+
+# header
+mark DECODING RED GREEN
+
+mark PROACTIVE_COMMAND BLUE GREEN
+mark MENU_SELECTION BLUE GREEN
+mark EVENT_DOWNLOAD BLUE GREEN
+
+# sections
+mark "^COMMAND_DETAILS" BLUE GREEN
+mark "^DEVICE_IDENTITIES" BLUE GREEN
+mark "^RESULT" BLUE GREEN
+mark "^DURATION" BLUE GREEN
+mark "^ALPHA_ID" BLUE GREEN
+mark "^ADDRESS" BLUE GREEN
+mark "^USSD_STRING" BLUE GREEN
+mark "^SMS_TPDU" BLUE GREEN
+mark "^TEXT_STRING" BLUE GREEN
+mark "^TONE" BLUE GREEN
+mark "^ITEM_ID" BLUE GREEN
+mark "^ITEM" BLUE GREEN
+mark "^RESPONSE_LENGTH" BLUE GREEN
+mark "^FILE_LIST" BLUE GREEN
+mark "^HELP_REQUEST" BLUE GREEN
+mark "^DEFAULT_TEXT" BLUE GREEN
+mark "^EVENT_LIST" BLUE GREEN
+mark "^ICON_ID" BLUE GREEN
+mark "^ITEM_ICON_ID_LIST" BLUE GREEN
+mark "^IMMEDIATE_RESPONSE" BLUE GREEN
+mark "^LANGUAGE" BLUE GREEN
+mark "^URL" BLUE GREEN
+mark "^BROWSER_TERMINATION_CAUSE" BLUE GREEN
+mark "^TEXT_ATTRIBUTE" BLUE GREEN
+
+#subsections
+mark "^[\t]+Command Number" YELLOW GREEN
+mark "^[\t]+Command Qualifier" YELLOW GREEN
+mark "^[\t]+Source" YELLOW GREEN
+mark "^[\t]+Destination" YELLOW GREEN
+mark "^[\t]+Result" YELLOW GREEN
+mark "^[\t]+Info" YELLOW GREEN
+mark "^[\t]+Time" YELLOW GREEN
+mark "^[\t]+Alpha ID" YELLOW GREEN
+mark "^[\t]+Coding Scheme" YELLOW GREEN
+mark "^[\t]+Text" YELLOW GREEN
+mark "^[\t]+Item ID" YELLOW GREEN
+mark "^[\t]+Item Text" YELLOW GREEN
+
+mark "^[\t]+[0-9A-F][0-9A-F]~[0-9A-F][0-9A-F]"  CYAN GREEN
+
+# mark "^[=]+$" BLUE GREEN
+
+break "^stkspy version 0.1"
+break "^stkspy-0.1 .OPTIONS. STK_PDU1 STK_PDU2"
+
