@@ -1,0 +1,3 @@
+[submodule "tinycode"]
+	path = tinycode
+	url = https://github.com/crs-chin/tinycode.git

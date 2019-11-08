@@ -8,8 +8,10 @@ all:stkspy-$(STKSPY_VERSION)
 CFLAGS += -DNDEBUG -O2 -DVERSION=\"$(STKSPY_VERSION)\"
 LDFLAGS += -s
 
-stkspy-$(STKSPY_VERSION):stkspy.c
-	$(CC) $(CFLAGS) $(LDFLAGS) $< -o $@
+stkspy-obj := stkspy.o tinycode/tinycode.o
+
+stkspy-$(STKSPY_VERSION):$(stkspy-obj)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(stkspy-obj) -o $@
 
 install:stkspy-$(STKSPY_VERSION)
 	install -D -m 755 destk.sh ~/bin/destk.sh
@@ -19,6 +21,6 @@ install:stkspy-$(STKSPY_VERSION)
 
 clean:
 	rm stkspy-$(STKSPY_VERSION)
-	rm stkspy.o
+	rm $(stkspy-obj)
 
 .phony:install clean

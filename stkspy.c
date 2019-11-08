@@ -31,6 +31,8 @@
 #include <iconv.h>
 #include <getopt.h>
 
+#include "tinycode/tinycode.h"
+
 #define ARRAYSIZE(a)  (sizeof(a)/sizeof(a[0]))
 #define RETURN_VAL_IF(val,exp)  do{if(exp) return val;}while(0)
 
@@ -1033,11 +1035,27 @@ static void des_text_string(CompTlv *tlv)
     if(tlv->len)  {
         coding = tlv->val[0] & 0x0C;
         if(coding == 0x00)  {
-            printf("\n\tCoding Scheme: GSM 7-bit Packed\n");
-            hex_dump(tlv->val + 1, tlv->len - 1);
+            printf("\n\tCoding Scheme: GSM 7-bit Packed");
+            txt = tiny_decode_gsm7bit_packed(tlv->val + 1, tlv->len - 1, 0);
+            if(txt)  {
+                printf("\n\tText: %s\n", txt);
+                free(txt);
+            }else  {
+                printf("\n\tText: <Fail to decode>\n");
+                if(tlv->len - 1 > 0)
+                    hex_dump(tlv->val + 1, tlv->len - 1);
+            }
         }else if(coding == 0x04)  {
-            printf("\n\tCoding Scheme: GSM 8-bit Unpacked\n");
-            hex_dump(tlv->val + 1, tlv->len - 1);
+            printf("\n\tCoding Scheme: GSM 8-bit Unpacked");
+            txt = tiny_decode_gsm8bit_unpacked(tlv->val + 1, tlv->len - 1);
+            if(txt)  {
+                printf("\n\tText: %s\n", txt);
+                free(txt);
+            }else  {
+                printf("\n\tText: <Fail to decode>\n");
+                if(tlv->len - 1 > 0)
+                    hex_dump(tlv->val + 1, tlv->len - 1);
+            }
         } else if(coding == 0x08)  {
             printf("\n\tCoding Scheme: UCS2(UTF-16BE)");
             txt = to_utf8(tlv->val + 1, tlv->len - 1, "UTF16BE");
@@ -1045,7 +1063,7 @@ static void des_text_string(CompTlv *tlv)
                 printf("\n\tText: %s\n", txt);
                 free(txt);
             }else  {
-                printf("\n\tText: <Fail to decode>\n", txt);
+                printf("\n\tText: <Fail to decode>\n");
                 if(tlv->len - 1 > 0)
                     hex_dump(tlv->val + 1, tlv->len - 1);
             }
